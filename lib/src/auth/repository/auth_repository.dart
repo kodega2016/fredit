@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:fredit/src/auth/providers/firebase_providers.dart';
+import 'package:fredit/src/core/providers/firebase_providers.dart';
 import 'package:fredit/src/core/constants/app_assets.dart';
 import 'package:fredit/src/core/constants/firebase_constants.dart';
 import 'package:fredit/src/core/failure.dart';

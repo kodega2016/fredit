@@ -47,6 +47,8 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>use image/file for community images</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -58,7 +60,5 @@
 			</array>
 		</dict>
 	</array>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>use image/file for community images</string>
 </dict>
 </plist>

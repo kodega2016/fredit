@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:fredit/src/auth/providers/firebase_providers.dart';
+import 'package:fredit/src/core/providers/firebase_providers.dart';
 import 'package:fredit/src/core/constants/firebase_constants.dart';
 import 'package:fredit/src/core/failure.dart';
 import 'package:fredit/src/core/type_defs.dart';
@@ -64,5 +64,16 @@ class CommunityRepository {
         "id": event.id,
       });
     });
+  }
+
+  FutureVoid editCommunity(CommunityModel communityModel) async {
+    try {
+      await _communities
+          .doc(communityModel.docName)
+          .update(communityModel.toMap());
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(Failure(message: e.message ?? e.toString()));
+    }
   }
 }
