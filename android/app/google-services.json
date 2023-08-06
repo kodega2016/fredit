@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "681329727544",
+    "project_id": "fredit",
+    "storage_bucket": "fredit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681329727544:android:265580cc14b417654deecd",
+        "android_client_info": {
+          "package_name": "com.example.fredit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681329727544-o6k71hsitpk1m0duu7rn9asgjbko76gv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKekxEsvec-v8F0x-Q7qU3beideKKKapw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681329727544-o6k71hsitpk1m0duu7rn9asgjbko76gv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
