@@ -76,4 +76,20 @@ class CommunityRepository {
       return left(Failure(message: e.message ?? e.toString()));
     }
   }
+
+  Stream<List<CommunityModel>> searchCommunity(String query) {
+    return _communities
+        .where(
+          'name',
+          isGreaterThanOrEqualTo: query,
+          isLessThan: '${query}z',
+        )
+        .snapshots()
+        .map((event) => event.docs
+            .map((e) => CommunityModel.fromMap({
+                  ...e.data() as Map<String, dynamic>,
+                  "id": e.id,
+                }))
+            .toList());
+  }
 }

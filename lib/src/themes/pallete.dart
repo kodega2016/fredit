@@ -14,7 +14,7 @@ class Pallete {
   // Themes
   static var darkModeAppTheme = ThemeData(
     useMaterial3: true,
-    fontFamily: GoogleFonts.workSans().fontFamily,
+    fontFamily: GoogleFonts.openSans().fontFamily,
     brightness: Brightness.dark,
   ).copyWith(
     scaffoldBackgroundColor: blackColor,
@@ -39,7 +39,7 @@ class Pallete {
 
   static var lightModeAppTheme = ThemeData(
     useMaterial3: true,
-    fontFamily: GoogleFonts.workSans().fontFamily,
+    fontFamily: GoogleFonts.openSans().fontFamily,
     brightness: Brightness.light,
   ).copyWith(
     scaffoldBackgroundColor: whiteColor,

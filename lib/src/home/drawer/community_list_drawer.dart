@@ -27,6 +27,9 @@ class CommunityListDrawer extends ConsumerWidget {
                         itemBuilder: (context, index) {
                           final community = communities[index];
                           return ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage: NetworkImage(community.avatar!),
+                            ),
                             title: Text(
                               "r/${community.name}",
                             ),

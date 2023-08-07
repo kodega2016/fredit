@@ -24,6 +24,8 @@ final streamUserCommunitiesProvider = StreamProvider((ref) {
       .watch(communityControllerProvider.notifier)
       .streamUserCommunities();
 });
+final searchCommunityProvider = StreamProvider.family((ref, String query) =>
+    ref.watch(communityControllerProvider.notifier).searchCommunity(query));
 
 class CommunityController extends StateNotifier<bool> {
   final CommunityRepository _communityRepository;
@@ -109,5 +111,9 @@ class CommunityController extends StateNotifier<bool> {
       (l) => showSnackbar(context, l.message),
       (r) => showSnackbar(context, "community is updated successfully."),
     );
+  }
+
+  Stream<List<CommunityModel>> searchCommunity(String query) {
+    return _ref.read(communityRepositoryProvider).searchCommunity(query);
   }
 }
