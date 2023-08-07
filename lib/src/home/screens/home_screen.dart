@@ -4,6 +4,7 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:fredit/src/auth/controller/auth_controller.dart';
 import 'package:fredit/src/home/delegates/search_community_delegate.dart';
 import 'package:fredit/src/home/drawer/community_list_drawer.dart';
+import 'package:fredit/src/home/drawer/profile_drawer.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -13,6 +14,7 @@ class HomeScreen extends ConsumerWidget {
     final user = ref.watch(userProvider);
     return Scaffold(
       drawer: const CommunityListDrawer(),
+      endDrawer: const ProfileDrawer(),
       appBar: AppBar(
         leading: Builder(builder: (context) {
           return IconButton(
@@ -40,10 +42,17 @@ class HomeScreen extends ConsumerWidget {
               horizontal: 8,
               vertical: 12,
             ),
-            child: CircleAvatar(
-              backgroundImage:
-                  user != null ? NetworkImage(user.profilePic) : null,
-            ),
+            child: Builder(builder: (context) {
+              return GestureDetector(
+                onTap: () {
+                  Scaffold.of(context).openEndDrawer();
+                },
+                child: CircleAvatar(
+                  backgroundImage:
+                      user != null ? NetworkImage(user.profilePic) : null,
+                ),
+              );
+            }),
           ),
         ],
       ),
