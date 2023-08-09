@@ -47,7 +47,7 @@ class CommunityRepository {
 
   Stream<List<CommunityModel>> streamUserCommunities(String uid) {
     return _communities
-        .where('members', arrayContains: uid)
+        // .where('members', arrayContains: uid)
         .snapshots()
         .map((event) => event.docs
             .map((e) => CommunityModel.fromMap({
@@ -91,5 +91,31 @@ class CommunityRepository {
                   "id": e.id,
                 }))
             .toList());
+  }
+
+  FutureVoid joinCommunity(String communityName, String userID) async {
+    try {
+      await _communities.doc(communityName).update({
+        "members": FieldValue.arrayUnion([userID])
+      });
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(Failure(message: e.message ?? e.toString()));
+    } catch (e) {
+      return left(Failure(message: e.toString()));
+    }
+  }
+
+  FutureVoid leaveCommunity(String communityName, String userID) async {
+    try {
+      await _communities.doc(communityName).update({
+        "members": FieldValue.arrayRemove([userID])
+      });
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(Failure(message: e.message ?? e.toString()));
+    } catch (e) {
+      return left(Failure(message: e.toString()));
+    }
   }
 }

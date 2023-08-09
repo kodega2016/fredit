@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fredit/src/auth/controller/auth_controller.dart';
+import 'package:fredit/src/community/controller/community_controller.dart';
 import 'package:fredit/src/community/repository/community_repository.dart';
 import 'package:fredit/src/core/widgets/loader.dart';
+import 'package:fredit/src/models/community_model.dart';
 import 'package:routemaster/routemaster.dart';
 
 class CommunityScreen extends ConsumerWidget {
@@ -17,6 +19,16 @@ class CommunityScreen extends ConsumerWidget {
 
   void navigateToModTools(BuildContext context) {
     Routemaster.of(context).push("/mod-tools/$name");
+  }
+
+  void joinCommunity(
+    BuildContext context,
+    WidgetRef ref,
+    CommunityModel community,
+  ) {
+    ref
+        .read(communityControllerProvider.notifier)
+        .joinCommunity(context, community);
   }
 
   @override
@@ -95,7 +107,13 @@ class CommunityScreen extends ConsumerWidget {
                                             foregroundColor: Colors.white,
                                             backgroundColor: Colors.blue,
                                           ),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            joinCommunity(
+                                              context,
+                                              ref,
+                                              community,
+                                            );
+                                          },
                                           child: Text(
                                               isMember ? "Joined" : "Join"),
                                         ),
@@ -110,9 +128,7 @@ class CommunityScreen extends ConsumerWidget {
                 )
               ];
             },
-            body: Container(
-              child: const Text("Displaying posts"),
-            ),
+            body: const Text("Displaying posts"),
           );
         },
         error: (e, s) {

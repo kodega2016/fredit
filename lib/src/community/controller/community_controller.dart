@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:fredit/src/auth/controller/auth_controller.dart';
 import 'package:fredit/src/community/repository/community_repository.dart';
 import 'package:fredit/src/core/constants/app_assets.dart';
+import 'package:fredit/src/core/failure.dart';
 import 'package:fredit/src/core/providers/storage_repository_provider.dart';
 import 'package:fredit/src/core/utils.dart';
 import 'package:fredit/src/models/community_model.dart';
@@ -115,5 +117,40 @@ class CommunityController extends StateNotifier<bool> {
 
   Stream<List<CommunityModel>> searchCommunity(String query) {
     return _ref.read(communityRepositoryProvider).searchCommunity(query);
+  }
+
+  Future<void> joinCommunity(
+      BuildContext context, CommunityModel community) async {
+    final user = _ref.read(userProvider);
+    if (user != null) {
+      Either<Failure, Unit> res;
+
+      if (!community.members.contains(user.uid)) {
+        res = await _communityRepository.joinCommunity(
+          community.docName,
+          user.uid,
+        );
+      } else {
+        res = await _communityRepository.leaveCommunity(
+          community.docName,
+          user.uid,
+        );
+      }
+
+      res.fold(
+        (l) => showSnackbar(context, l.message),
+        (r) => showSnackbar(context, "community is updated successfully."),
+      );
+    }
+  }
+
+  void leaveCommunity(String communityName) {
+    final user = _ref.read(userProvider);
+    if (user != null) {
+      _ref.read(communityRepositoryProvider).leaveCommunity(
+            communityName,
+            user.uid,
+          );
+    }
   }
 }
